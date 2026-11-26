@@ -1,0 +1,2 @@
+# 30daysJsChallenge-LocalStorage-and-Event-Delegation.
+Day 15 of the 30 Days JavaScript Challenge: learned how to utilize  Local Storage for persistent data storage in the browser, ensuring data retention &amp;  grasped the concept of event delegation, which optimizes event handling by using a single listener on a parent element for multiple child elements, enhancing performance and code organization.

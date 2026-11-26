@@ -1,0 +1,2 @@
+# 30daysJsChallenge-Dev-Tools-Tricks.
+Day 9 of the 30 Days JavaScript Challenge: Dev-Tools-Tricks!learned how to utilize various console functions and techniques for debugging and logging, such as formatting messages, styling output, asserting conditions, grouping related logs, counting occurrences, measuring execution time, and displaying tabular data using console.log, console.warn, console.error, console.info, console.assert, console.clear, console.group, console.count, console.time, and console.table, improving your debugging and development workflow.
