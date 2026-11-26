@@ -58,15 +58,11 @@ jobs:
 
             git clone --depth 1 \
               "https://github.com/AnuragChaubey05/${repo}.git" \
-              "/tmp/$repo" || {
-                echo "Failed to clone $repo"
-                exit 1
-              }
+              "/tmp/$repo" || exit 1
 
             mkdir -p "projects/$repo"
 
-            rsync -a \
-              --exclude='.git' \
+            rsync -a --exclude='.git' \
               "/tmp/$repo/" \
               "projects/$repo/"
           done
