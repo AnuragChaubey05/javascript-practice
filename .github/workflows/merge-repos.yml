@@ -1,0 +1,81 @@
+
+name: Merge JavaScript Practice Repositories
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+
+      - name: Copy practice repositories
+        run: |
+          mkdir -p projects
+
+          # Add your repository names here
+          repos=(
+             "30daysJsChallenge-Whack-A-Mole-Game."
+  "30daysJsChallenge--Countdown-clock."
+  "30daysJsChallenge-Video-Speed-Controller-UI."
+  "30daysJsChallenge-Click-and-Drag-to-Scroll."
+  "30daysJsChallenge-Stripe-Follow-Along-Dropdown."
+  "30daysJsChallenge-Event-Capture-Propagation-Bubbling-and-Once."
+  "30daysJsChallenge-Unreal-Webcam-Fun."
+  "30daysJsChallenge-Sticky-Nav."
+  "30daysJsChallenge-Speech-Synthesis."
+  "30daysJsChallenge-Follow-Along-Links"
+  "30daysJsChallenge-Geolocation-based-Speedometer-and-Compass."
+  "30daysJsChallenge-Native-Speech-Recognition."
+  "30daysJsChallenge-Tally-String-Times-with-Reduce."
+  "30daysJsChallenge-Sorting-Band-Names-without-articles."
+  "30daysJsChallenge-CSS-Text-Shadow-Mouse-Move-Effect."
+  "30daysJsChallenge-LocalStorage-and-Event-Delegation."
+  "30daysJsChallenge-Object-and-Arrays---Reference-VS-Copy."
+  "30daysJsChallenge-Slide-In-on-Scroll."
+  "30daysJsChallenge-Key-Sequence-Detection.-is-available."
+  "30daysJsChallenge-Custom-Html5-Video-Player."
+  "30daysJsChallenge-Check-Multiple-Checkboxes."
+  "30daysJsChallenge-Ajax-Type-Ahead."
+  "30daysJsChallenge-Dev-Tools-Tricks."
+  "30daysJsChallenge-HTML5-CANVAS."
+  "30daysJsChallenge-Array-Cardio-Day-2."
+  "30daysJsChallenge-Array-Cardio-Day-1."
+  "30daysJsChallenge-Flex-Panels-Image-Gallery."
+  "30daysJsChallenge-Update-CSS-Variables-with-JS."
+  "30daysJsChallenge-Clock"
+  "30daysJsChallenge-Drumkit"
+          )
+
+          for repo in "${repos[@]}"; do
+            echo "Copying $repo..."
+
+            git clone --depth 1 \
+              "https://github.com/AnuragChaubey05/${repo}.git" \
+              "/tmp/$repo"
+
+            mkdir -p "projects/$repo"
+
+            rsync -a \
+              --exclude='.git' \
+              "/tmp/$repo/" \
+              "projects/$repo/"
+          done
+
+      - name: Save changes to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add projects
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Import JavaScript practice projects"
+            git push
+          fi
